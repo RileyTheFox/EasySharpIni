@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasySharpIni", "EasySharpIni\EasySharpIni.csproj", "{6686CE62-86AB-44F9-B7AF-DC9A31D5E0FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IniExample", "IniExample\IniExample.csproj", "{EDAA669E-8B9D-408D-ACD5-DF3C9BC3ED04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IniExample", "IniExample\IniExample.csproj", "{EDAA669E-8B9D-408D-ACD5-DF3C9BC3ED04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

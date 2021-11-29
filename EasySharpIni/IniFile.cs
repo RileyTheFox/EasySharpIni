@@ -1,4 +1,7 @@
-﻿using EasySharpIni.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using EasySharpIni.Models;
 
 namespace EasySharpIni
 {
@@ -23,10 +26,12 @@ namespace EasySharpIni
             return IniIO.Parse(this);
         }
 
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         public async Task<IniFile> ParseAsync()
         {
             return await IniIO.ParseAsync(this);
         }
+#endif
 
         public void Write(IniExportOptions options = IniExportOptions.Default, string pathOverride = "")
         {
@@ -40,6 +45,7 @@ namespace EasySharpIni
             _path = oldPath;
         }
 
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         public async Task WriteAsync(IniExportOptions options = IniExportOptions.Default, string pathOverride = "")
         {
             string oldPath = _path;
@@ -51,6 +57,7 @@ namespace EasySharpIni
             await IniIO.WriteAsync(this, options);
             _path = oldPath;
         }
+#endif
 
         public IniSection CreateSection(string sectionName, IniSection? section = null)
         {

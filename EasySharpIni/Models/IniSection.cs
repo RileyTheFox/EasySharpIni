@@ -1,4 +1,6 @@
-﻿namespace EasySharpIni.Models
+﻿using System.Collections.Generic;
+
+namespace EasySharpIni.Models
 {
     public class IniSection
     {

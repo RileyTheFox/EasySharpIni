@@ -1,4 +1,6 @@
-﻿namespace EasySharpIni
+﻿using System;
+
+namespace EasySharpIni
 {
     [Flags]
     public enum IniExportOptions

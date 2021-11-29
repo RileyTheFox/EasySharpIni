@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+
 using EasySharpIni.Models;
 
 namespace EasySharpIni
@@ -14,6 +18,7 @@ namespace EasySharpIni
             return ReadFile(file, File.ReadAllLines(file.Path));
         }
 
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         internal static async Task<IniFile> ParseAsync(IniFile file)
         {
             if (!File.Exists(file.Path))
@@ -21,16 +26,19 @@ namespace EasySharpIni
 
             return ReadFile(file, await File.ReadAllLinesAsync(file.Path));
         }
+#endif
 
         internal static void Write(IniFile file, IniExportOptions options)
         {
             File.WriteAllText(file.Path, ExportToText(file, options));
         }
 
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         internal static async Task WriteAsync(IniFile file, IniExportOptions options)
         {
             await File.WriteAllTextAsync(file.Path, ExportToText(file, options));
         }
+#endif
 
         private static IniFile ReadFile(IniFile file, string[] lines)
         {
@@ -42,9 +50,9 @@ namespace EasySharpIni
                     continue;
 
                 // Section Parsing
-                if (line.StartsWith('[') && line.EndsWith(']'))
+                if (line.StartsWith("[") && line.EndsWith("]"))
                 {
-                    string sectionText = line[1..(line.Length - 1)].Trim();
+                    string sectionText = line.Substring(1, line.Length - 1).Trim();
 
                     section = file.CreateSection(sectionText);
                 }
@@ -54,8 +62,8 @@ namespace EasySharpIni
                     if (equalsIndex == -1)
                         continue;
 
-                    string key = line[0..equalsIndex].Trim();
-                    string value = line[(equalsIndex + 1)..line.Length].Trim();
+                    string key = line.Substring(0, equalsIndex).Trim();
+                    string value = line.Substring(equalsIndex + 1, line.Length - equalsIndex - 1).Trim();
 
                     if (section == null)
                     {
