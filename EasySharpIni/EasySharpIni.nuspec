@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+	<metadata>
+		<id>EasySharpIni</id>
+		<version>1.0.0</version>
+		<authors>RileyTheFox</authors>
+		<projectUrl>https://github.com/RileyTheFox/EasySharpIni</projectUrl>
+		<description>
+			A library designed to easily read, parse and write .ini files written in C#. Supporting conversion from strings to generic types. Supporting .NET 5-6, .NET Standard 2.1 and .NET Framework 4.6, 4.7.2 and 4.8.
+		</description>
+		<tags>ini</tags>
+		<repository url="https://github.com/RileyTheFox/EasySharpIni" />
+		<dependencies>
+			<group targetFramework=".NETFramework4.6" />
+			<group targetFramework=".NETFramework4.7.2" />
+			<group targetFramework=".NETFramework4.8" />
+			<group targetFramework="net5.0" />
+			<group targetFramework="net6.0" />
+			<group targetFramework=".NETStandard2.1" />
+		</dependencies>
+	</metadata>
+</package>
