@@ -17,6 +17,10 @@ namespace EasySharpIni
 
             return ReadFile(file, File.ReadAllLines(file.Path));
         }
+        internal static void Write(IniFile file, IniExportOptions options)
+        {
+            File.WriteAllText(file.Path, ExportToText(file, options));
+        }
 
 #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         internal static async Task<IniFile> ParseAsync(IniFile file)
@@ -26,14 +30,7 @@ namespace EasySharpIni
 
             return ReadFile(file, await File.ReadAllLinesAsync(file.Path));
         }
-#endif
 
-        internal static void Write(IniFile file, IniExportOptions options)
-        {
-            File.WriteAllText(file.Path, ExportToText(file, options));
-        }
-
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         internal static async Task WriteAsync(IniFile file, IniExportOptions options)
         {
             await File.WriteAllTextAsync(file.Path, ExportToText(file, options));
