@@ -2,6 +2,9 @@
 
 namespace EasySharpIni
 {
+    /// <summary>
+    /// Export flags for manipulating how an <see cref="IniFile"/> should be exported to a string.
+    /// </summary>
     [Flags]
     public enum IniExportOptions
     {
@@ -21,6 +24,10 @@ namespace EasySharpIni
         /// Exports the fields in alphabetical order.
         /// </summary>
         AlphabeticalFields = 8,
+        /// <summary>
+        /// The default export options.
+        /// <para>Includes <see cref="KeyValueWhitespace"/> and <see cref="NewLineAfterSection"/></para>
+        /// </summary>
         Default = KeyValueWhitespace | NewLineAfterSection
     }
 }

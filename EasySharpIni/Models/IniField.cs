@@ -59,9 +59,8 @@ namespace EasySharpIni.Models
         /// Converts the value of the field to type <typeparamref name="T"/> using the supplied <see cref="IConverter{T}"/>.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="IConverter"></typeparam>
-        /// <param name="converter"></param>
-        /// <returns></returns>
+        /// <param name="converter">The converter to use.</param>
+        /// <returns>The value of this field, as type <typeparamref name="T"/>.</returns>
         public T Get<T>(IConverter<T> converter)
         {
             bool success = converter.Parse(_rawValue, out T result);
@@ -80,11 +79,22 @@ namespace EasySharpIni.Models
             _rawValue = value;
         }
 
+        /// <summary>
+        /// Converts the <typeparamref name="T"/> value to a string and sets it to the value of the field.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value to set.</param>
+        /// <param name="converter">The converter to convert use.</param>
         public void Set<T>(T value, IConverter<T> converter)
         {
             _rawValue = converter.ToString(value);
         }
 
+        /// <summary>
+        /// Returns the raw string value of the field.
+        /// <para>Same as <see cref="Get"/></para>
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return Get();

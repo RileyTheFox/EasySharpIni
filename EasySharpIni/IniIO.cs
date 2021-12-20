@@ -37,7 +37,7 @@ namespace EasySharpIni
         }
 #endif
 
-        private static IniFile ReadFile(IniFile file, string[] lines)
+        internal static IniFile ReadFile(IniFile file, string[] lines)
         {
             IniSection? section = null;
             foreach (string line in lines)
@@ -73,7 +73,13 @@ namespace EasySharpIni
             return file;
         }
 
-        public static string ExportToText(IniFile file, IniExportOptions options)
+        /// <summary>
+        /// Exports <paramref name="iniFile"/> to a <see cref="string"/> using the <see cref="IniExportOptions"/> <paramref name="options"/>. 
+        /// </summary>
+        /// <param name="iniFile">The <see cref="IniFile"/> to export.</param>
+        /// <param name="options">The options to use</param>
+        /// <returns><paramref name="iniFile"/> represented as a string.</returns>
+        public static string ExportToText(IniFile iniFile, IniExportOptions options)
         {
             StringBuilder output = new StringBuilder();
             string keyValueSeparator = options.HasFlag(IniExportOptions.KeyValueWhitespace) ? " = " : "=";
@@ -84,7 +90,7 @@ namespace EasySharpIni
             // Output fields that are not in a section.
             if (alphabeticalFields)
             {
-                SortedSet<IniField> sorted = new(file.Fields, new IniFieldKeyComparer());
+                SortedSet<IniField> sorted = new(iniFile.Fields, new IniFieldKeyComparer());
 
                 foreach (IniField field in sorted)
                 {
@@ -93,7 +99,7 @@ namespace EasySharpIni
             }
             else
             {
-                foreach (IniField field in file.Fields)
+                foreach (IniField field in iniFile.Fields)
                 {
                     output.AppendLine($"{field.Key}{keyValueSeparator}{field.Get()}");
                 }
@@ -105,7 +111,7 @@ namespace EasySharpIni
             // Output fields that are in sections
             if (alphabeticalSections)
             {
-                SortedSet<IniSection> sorted = new(file.Sections, new IniSectionComparer());
+                SortedSet<IniSection> sorted = new(iniFile.Sections, new IniSectionComparer());
 
                 foreach (IniSection section in sorted)
                 {
@@ -133,7 +139,7 @@ namespace EasySharpIni
             }
             else
             {
-                foreach (IniSection section in file.Sections)
+                foreach (IniSection section in iniFile.Sections)
                 {
                     output.AppendLine($"[{section.Name}]");
                     if (alphabeticalFields)
