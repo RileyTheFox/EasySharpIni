@@ -14,6 +14,9 @@
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
+	<PropertyGroup>
+		<VersionPrefix>1.1.0</VersionPrefix>
+	</PropertyGroup>
 	<ItemGroup>
 		<None Include="licenses\LICENSE.txt" Pack="true" PackagePath=""/>
 	</ItemGroup>
