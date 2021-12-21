@@ -99,5 +99,7 @@ namespace EasySharpIni.Models
         {
             return Get();
         }
+
+        public static implicit operator string(IniField field) => field.ToString();
     }
 }
