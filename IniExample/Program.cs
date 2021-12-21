@@ -26,7 +26,8 @@ namespace IniTester
             // Iterate through global fields
             foreach (IniField field in iniFile.Fields)
             {
-                Console.WriteLine($"{field.Key}: {field.Get()}");
+                // Convert IniField implicitly to a string
+                Console.WriteLine($"{field.Key}: {field}");
             }
             // Iterate through sections
             foreach (IniSection iniSection in iniFile.Sections)
