@@ -42,25 +42,26 @@ namespace EasySharpIni
             IniSection? section = null;
             foreach (string line in lines)
             {
+                var trimLine = line.Trim();
                 // Comments are not parsed
-                if (line.StartsWith(";") || string.IsNullOrEmpty(line))
+                if (trimLine.StartsWith(";") || string.IsNullOrEmpty(trimLine))
                     continue;
 
                 // Section Parsing
-                if (line.StartsWith("[") && line.EndsWith("]"))
+                if (trimLine.StartsWith("[") && trimLine.EndsWith("]"))
                 {
-                    string sectionText = line.Substring(1, line.Length - 1).Trim();
+                    string sectionText = trimLine.Substring(1, trimLine.Length - 2).Trim();
 
                     section = file.CreateSection(sectionText);
                 }
                 else
                 {
-                    int equalsIndex = line.IndexOf('=');
+                    int equalsIndex = trimLine.IndexOf('=');
                     if (equalsIndex == -1)
                         continue;
 
-                    string key = line.Substring(0, equalsIndex).Trim();
-                    string value = line.Substring(equalsIndex + 1, line.Length - equalsIndex - 1).Trim();
+                    string key = trimLine.Substring(0, equalsIndex).Trim();
+                    string value = trimLine.Substring(equalsIndex + 1, trimLine.Length - equalsIndex - 1).Trim();
 
                     if (section == null)
                     {
