@@ -15,25 +15,25 @@ namespace IniBenchmarks
     {
 
         private IniFile file;
-        private string[] lines;
+        private IniFile file2;
 
         [GlobalSetup]
         public void Setup()
         {
             file = new("G:\\Clone Hero\\settings.ini");
-            lines = File.ReadAllLines(file.Path);
+            file2 = new("G:\\Clone Hero\\settings.ini");
         }
 
         [Benchmark]
         public IniFile ParseString()
         {
-            return IniIO.ReadFile(new IniFile("G:\\Clone Hero\\settings.ini"), lines);
+            return file.Parse();
         }
 
         [Benchmark]
         public IniFile ParseSpan()
         {
-            return IniIO.ReadFileSpan(new IniFile("G:\\Clone Hero\\settings.ini"));
+            return file2.ParseSpan();
         }
 
     }
