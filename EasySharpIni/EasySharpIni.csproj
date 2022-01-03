@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<LangVersion>9</LangVersion>
-		<TargetFrameworks>net6.0;net5.0;netstandard2.1;net48;net472;net46</TargetFrameworks>
+		<TargetFrameworks>net6.0;net5.0;netstandard2.1</TargetFrameworks>
 		<ImplicitUsings>false</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Description>A library designed to easily read, parse and write .ini files written in C#. Supporting conversion from strings to generic types. Supporting .NET 5-6, .NET Standard 2.1 and .NET Framework 4.6, 4.7.2 and 4.8. Works with Unity.</Description>
@@ -18,6 +18,6 @@
 		<VersionPrefix>1.1.1</VersionPrefix>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="licenses\LICENSE.txt" Pack="true" PackagePath=""/>
+		<None Include="licenses\LICENSE.txt" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>

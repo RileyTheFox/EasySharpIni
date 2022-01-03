@@ -43,6 +43,11 @@ namespace EasySharpIni
             return IniIO.Parse(this);
         }
 
+        public IniFile ParseSpan()
+        {
+            return IniIO.ParseSpan(this);
+        }
+
 #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         /// <summary>
         /// Parse the ini file asynchronously.

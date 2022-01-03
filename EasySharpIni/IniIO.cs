@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,14 @@ namespace EasySharpIni
                 return file;
 
             return ReadFile(file, File.ReadAllLines(file.Path));
+        }
+
+        internal static IniFile ParseSpan(IniFile file)
+        {
+            if (!File.Exists(file.Path))
+                return file;
+
+            return ReadFileSpan(file);
         }
         internal static void Write(IniFile file, IniExportOptions options)
         {
@@ -37,7 +46,55 @@ namespace EasySharpIni
         }
 #endif
 
-        internal static IniFile ReadFile(IniFile file, string[] lines)
+        public static IniFile ReadFileSpan(IniFile file)
+        {
+            try
+            {
+                ReadOnlySpan<char> text = File.ReadAllText(file.Path).AsSpan().Trim();
+
+                IniSection? section = null;
+
+                ReadOnlySpan<char> remaining = text;
+                while (ReadLine(ref remaining, out ReadOnlySpan<char> line))
+                {
+                    if (line.StartsWith(";"))
+                        continue;
+
+                    // Section Parsing
+                    if (line.StartsWith("[") && line.EndsWith("]"))
+                    {
+                        var sectionText = line.Slice(1, line.Length - 2);
+
+                        section = file.CreateSection(sectionText.ToString());
+                    }
+                    else
+                    {
+                        int equalsIndex = line.IndexOf('=');
+                        if (equalsIndex == -1)
+                            continue;
+
+                        var key = line.Slice(0, equalsIndex).Trim();
+                        var value = line.Slice(equalsIndex + 1, line.Length - equalsIndex - 1).Trim();
+
+                        if (section == null)
+                        {
+                            file.AddField(key.ToString(), value.ToString());
+                        }
+                        else section.AddField(key.ToString(), value.ToString());
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+
+            }
+            return file;
+        }
+
+        public static IniFile ReadFile(IniFile file, string[] lines)
         {
             IniSection? section = null;
             foreach (string line in lines)
@@ -72,6 +129,27 @@ namespace EasySharpIni
             }
 
             return file;
+        }
+
+        private static bool ReadLine(ref ReadOnlySpan<char> span, out ReadOnlySpan<char> line)
+        {
+            for (int i = 0; i < span.Length; i++)
+            {
+                if (span[i] == '\n')
+                {
+                    line = span.Slice(0, i);
+                    span = span.Slice(i + 1, span.Length - i - 1);
+                    return true;
+                }
+                if (span[i] == '\r' && span[i + 1] == '\n')
+                {
+                    line = span.Slice(0, i);
+                    span = span.Slice(i + 2, span.Length - i - 2);
+                    return true;
+                }
+            }
+            line = span;
+            return false;
         }
 
         /// <summary>

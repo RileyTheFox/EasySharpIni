@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasySharpIni", "EasySharpIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IniExample", "IniExample\IniExample.csproj", "{EDAA669E-8B9D-408D-ACD5-DF3C9BC3ED04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IniBenchmarks", "IniBenchmarks\IniBenchmarks.csproj", "{54228390-42BF-4786-BF74-CA8CB94D010C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EDAA669E-8B9D-408D-ACD5-DF3C9BC3ED04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDAA669E-8B9D-408D-ACD5-DF3C9BC3ED04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDAA669E-8B9D-408D-ACD5-DF3C9BC3ED04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54228390-42BF-4786-BF74-CA8CB94D010C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54228390-42BF-4786-BF74-CA8CB94D010C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54228390-42BF-4786-BF74-CA8CB94D010C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54228390-42BF-4786-BF74-CA8CB94D010C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
