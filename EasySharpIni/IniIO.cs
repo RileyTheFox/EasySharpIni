@@ -46,7 +46,7 @@ namespace EasySharpIni
         }
 #endif
 
-        public static IniFile ReadFileSpan(IniFile file)
+        internal static IniFile ReadFileSpan(IniFile file)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace EasySharpIni
                     // Section Parsing
                     if (line.StartsWith("[") && line.EndsWith("]"))
                     {
-                        var sectionText = line.Slice(1, line.Length - 2);
+                        var sectionText = line[1..^1];
 
                         section = file.CreateSection(sectionText.ToString());
                     }
@@ -73,7 +73,7 @@ namespace EasySharpIni
                         if (equalsIndex == -1)
                             continue;
 
-                        var key = line.Slice(0, equalsIndex).Trim();
+                        var key = line[..equalsIndex].Trim();
                         var value = line.Slice(equalsIndex + 1, line.Length - equalsIndex - 1).Trim();
 
                         if (section == null)
@@ -94,12 +94,13 @@ namespace EasySharpIni
             return file;
         }
 
-        public static IniFile ReadFile(IniFile file, string[] lines)
+        internal static IniFile ReadFile(IniFile file, string[] lines)
         {
             IniSection? section = null;
             foreach (string line in lines)
             {
                 var trimLine = line.Trim();
+
                 // Comments are not parsed
                 if (trimLine.StartsWith(";") || string.IsNullOrEmpty(trimLine))
                     continue;
@@ -107,7 +108,7 @@ namespace EasySharpIni
                 // Section Parsing
                 if (trimLine.StartsWith("[") && trimLine.EndsWith("]"))
                 {
-                    string sectionText = trimLine.Substring(1, trimLine.Length - 2).Trim();
+                    string sectionText = trimLine[1..^1].Trim();
 
                     section = file.CreateSection(sectionText);
                 }
@@ -117,7 +118,7 @@ namespace EasySharpIni
                     if (equalsIndex == -1)
                         continue;
 
-                    string key = trimLine.Substring(0, equalsIndex).Trim();
+                    string key = trimLine[..equalsIndex].Trim();
                     string value = trimLine.Substring(equalsIndex + 1, trimLine.Length - equalsIndex - 1).Trim();
 
                     if (section == null)
@@ -137,13 +138,13 @@ namespace EasySharpIni
             {
                 if (span[i] == '\n')
                 {
-                    line = span.Slice(0, i);
+                    line = span[..i];
                     span = span.Slice(i + 1, span.Length - i - 1);
                     return true;
                 }
                 if (span[i] == '\r' && span[i + 1] == '\n')
                 {
-                    line = span.Slice(0, i);
+                    line = span[..i];
                     span = span.Slice(i + 2, span.Length - i - 2);
                     return true;
                 }
@@ -160,7 +161,7 @@ namespace EasySharpIni
         /// <returns><paramref name="iniFile"/> represented as a string.</returns>
         public static string ExportToText(IniFile iniFile, IniExportOptions options)
         {
-            StringBuilder output = new StringBuilder();
+            StringBuilder output = new();
             string keyValueSeparator = options.HasFlag(IniExportOptions.KeyValueWhitespace) ? " = " : "=";
 
             bool alphabeticalFields = options.HasFlag(IniExportOptions.AlphabeticalFields);
